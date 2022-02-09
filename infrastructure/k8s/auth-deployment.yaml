@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: arasaig/auth
-          imagePullPolicy: IfNotPresent
+          image: us-east1-docker.pkg.dev/catfiadhaich-tickdev-340814/catfiadhaich/auth
 ---
 apiVersion: v1
 kind: Service

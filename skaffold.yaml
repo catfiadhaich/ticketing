@@ -5,8 +5,10 @@ deploy:
     manifests:
       - ./infrastructure/k8s/*
 build:
+  googleCloudBuild:
+    projectId: catfiadhaich-tickdev-340814
   artifacts:
-    - image: arasaig/auth
+    - image: us-east1-docker.pkg.dev/catfiadhaich-tickdev-340814/catfiadhaich/auth
       context: auth
       docker:
         dockerfile: Dockerfile
