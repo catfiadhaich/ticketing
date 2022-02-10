@@ -1,21 +1,28 @@
 import express from 'express';
+import 'express-async-errors';
 import { json } from 'body-parser';
 
-import { currentUserRouter } from './routes/current-user';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
-import { errorHandler } from './middleware/error-handler';
+import { CurrentUserRouter } from './routes/CurrentUserRouter';
+import { SignInRouter } from './routes/SignInRouter';
+import { SignOutRouter } from './routes/SignOutRouter';
+import { SignUpRouter } from './routes/SignUpRouter';
+import { ErrorRouter } from './middleware/ErrorRouter';
+import { NotFoundError } from './errors/NotFoundError';
+
 
 const app = express();
 app.use(json());
 
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
+app.use(CurrentUserRouter);
+app.use(SignInRouter);
+app.use(SignOutRouter);
+app.use(SignUpRouter);
 
-app.use(errorHandler);
+app.all('*', async (req, res) => {
+    throw new NotFoundError();
+});
+
+app.use(ErrorRouter);
 
 app.listen(3000, () => {
     console.log("The auth Service is listening on 3000");
